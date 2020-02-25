@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="LoadTable_phone.cpp" />
+    <ClCompile Include="LoadTable_colour.cpp" />
+    <ClCompile Include="LoadTable.cpp" />
+    <ClCompile Include="LoadTable_vehicle.cpp" />
+    <ClCompile Include="Lib\utilsCharset.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadTable_people.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LoadTable.h" />
+    <ClInclude Include="Lib\utilsCharset.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{1811fd04-83a8-4dca-aab0-be6d8db9e16b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Source-Name_female.txt" />
+    <Text Include="Source-Name_male.txt" />
+  </ItemGroup>
+</Project>
