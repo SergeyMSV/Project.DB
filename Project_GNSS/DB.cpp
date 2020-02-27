@@ -1,6 +1,36 @@
 #include "DB.h"
 
+#include <iomanip>
+#include <sstream>
+
 #include <cstdio>
+
+typedef std::pair<std::string, std::string> tSQLQueryParamPair;
+typedef std::vector<tSQLQueryParamPair> tSQLQueryParam;
+
+template<typename T>
+std::string DB_ToString(T value)
+{
+	std::stringstream Stream;
+
+	if (std::is_floating_point<T>::value)
+	{
+		Stream << value;
+	}
+	else//std::is_integral<T>::value
+	{
+		Stream << (unsigned int)value;
+	}
+
+	return Stream.str();
+}
+
+std::string DB_ToString(const std::time_t& timestamp)
+{
+	std::stringstream Stream;
+	Stream << std::put_time(std::localtime(&timestamp), "%F %T");
+	return Stream.str();
+}
 
 void DB_Open(MYSQL* mysql, const std::string& dbname, int& cerr)
 {
@@ -74,13 +104,53 @@ void DB_Insert(MYSQL* mysql, const std::string& table, const tSQLQueryParam& prm
 	}
 }
 
-void DB_Insert(MYSQL* mysql, const std::string& table, const tVectorSQLQueryParam& prms, int& cerr)
+void DB_Insert(MYSQL* mysql, const std::string& timestamp, const std::string& model, const std::string& ident, int& cerr)
 {
-	for (auto& prm : prms)
+	const tSQLQueryParam Query
 	{
-		DB_Insert(mysql, table, prm, cerr);
+		{"timestamp", timestamp},
+		{"model", model},
+		{"ident", ident},
+	};
 
-		if (cerr)
-			break;
-	}
+	DB_Insert(mysql, "rcv", Query, cerr);
+}
+
+void DB_Insert(MYSQL* mysql, const std::string& timestamp, char gnss, const std::string& dateTime, bool valid, double latitude, double longitude, double altitude, double speed, double course, unsigned char rcv_id, unsigned char update_id, int& cerr)
+{
+	const tSQLQueryParam Query
+	{
+		{"timestamp", timestamp},
+		{"gnss", DB_ToString(gnss)},
+		{"date_time", dateTime},
+		{"valid", DB_ToString(valid)},
+		{"latitude", DB_ToString(latitude)},
+		{"longitude", DB_ToString(longitude)},
+		{"altitude", DB_ToString(altitude)},
+		{"speed", DB_ToString(speed)},
+		{"course", DB_ToString(course)},
+		{"rcv_id", DB_ToString(rcv_id)},
+		{"update_id", DB_ToString(update_id)},
+	};
+
+	DB_Insert(mysql, "pos", Query, cerr);
+}
+
+void DB_Insert(MYSQL* mysql, int pos_id, int sat_id, int elevation, int azimuth, int snr, int& cerr)
+{
+	const tSQLQueryParam Query
+	{
+		{"pos_id", DB_ToString(pos_id)},
+		{"sat_id", DB_ToString(sat_id)},
+		{"elevation", DB_ToString(elevation)},
+		{"azimuth", DB_ToString(azimuth)},
+		{"snr", DB_ToString(snr)},
+	};
+
+	DB_Insert(mysql, "sat", Query, cerr);
+}
+
+std::string DB_GetTimestamp(const std::time_t& timestamp)
+{
+	return DB_ToString(timestamp);
 }

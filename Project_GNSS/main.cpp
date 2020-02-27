@@ -38,46 +38,34 @@ int main()
 
 		//Load data...
 
+		std::string Timestamp = DB_GetTimestamp(std::time(nullptr));
+
+		DB_Insert(&MySQL, Timestamp, "Blablabla 11", "super new1", Cerr);
+		DB_Insert(&MySQL, Timestamp, "Blablabla 11", "super new2", Cerr);
+		DB_Insert(&MySQL, Timestamp, "Blablabla 12", "super new3", Cerr);
+		DB_Insert(&MySQL, Timestamp, "Blablabla 14", "super new4", Cerr);
+		DB_Insert(&MySQL, Timestamp, "Blablabla 11", "super new5", Cerr);
+
+		DB_Insert(&MySQL, Timestamp, 2, "2020-01-28 14.23:51", true, 55.123456, 37.123456, 234.546344, 345.219, 123.345, 2, 1, Cerr);
+		DB_Insert(&MySQL, Timestamp, 2, "2020-01-28 14.23:52", true, 55.123456, 37.123456, 234.546344, 345.219, 123.345, 2, 1, Cerr);
+		DB_Insert(&MySQL, Timestamp, 2, "2020-01-28 14.23:53", true, 55.123456, 37.123456, 234.546344, 345.219, 123.345, 2, 1, Cerr);
+		DB_Insert(&MySQL, Timestamp, 1, "2020-01-28 14.23:54", true, 55.123456, 37.123456, 234.546344, 345.219, 123.345, 2, 1, Cerr);
+		DB_Insert(&MySQL, Timestamp, 1, "2020-01-28 14.23:55", true, 55.123456, 37.123456, 234.546344, 345.219, 123.345, 2, 1, Cerr);
+
+		DB_Insert(&MySQL, 3, 31, 12, 345, 91, Cerr);
+		DB_Insert(&MySQL, 3, 32, 12, 345, 91, Cerr);
+		DB_Insert(&MySQL, 3, 33, 12, 345, 91, Cerr);
+		DB_Insert(&MySQL, 3, 34, 12, 345, 91, Cerr);
+		DB_Insert(&MySQL, 3, 35, 12, 345, 91, Cerr);
+		DB_Insert(&MySQL, 5, 31, 13, 345, 91, Cerr);
+		DB_Insert(&MySQL, 5, 32, 13, 345, 91, Cerr);
+		DB_Insert(&MySQL, 5, 33, 13, 345, 91, Cerr);
+		DB_Insert(&MySQL, 5, 34, 13, 345, 91, Cerr);
+		DB_Insert(&MySQL, 5, 35, 13, 345, 91, Cerr);
+
+		if (Cerr)
 		{
-			tVectorSQLQueryParam Query
-			{
-				{{"timestamp", "2020-02-26 12.21:34.1234567"}, {"model", "Vasia DuperDev 4.12.01"}, {"ident", "first"}},
-				{{"timestamp", "2020-02-26 12.21:34.1234567"}, {"model", "Vasia DuperDev 4.12.02"}, {"ident", "second"}},
-				{{"timestamp", "2020-02-26 12.21:34.1234567"}, {"model", "Vasia DuperDev 4.12.34"}, {"ident", "third"}},
-				{{"timestamp", "2020-02-26 12.21:34.1234567"}, {"model", "Vasia DuperDev 4.12.04"}, {"ident", "forth"}},
-			};
-
-			DB_Insert(&MySQL, "rcv", Query, Cerr);
-		}
-
-		{
-			tVectorSQLQueryParam Query
-			{
-				{{"timestamp", "2020-02-28 14.23:48"}, {"rcv_id", "2"}, {"update_id", "1"}},
-				{{"timestamp", "2020-02-28 14.23:48"}, {"gnss", "1"}, {"date_time", "2020-02-23 11.22.33"}, {"valid", "1"}, {"latitude", "55.123456"}, {"longitude", "37.123456"}, {"altitude", "23.45"}, {"speed", "12.34"}, {"course", "123.45"}, {"rcv_id", "2"}, {"update_id", "1"}},
-				{{"timestamp", "2020-02-28 14.23:49"}, {"gnss", "1"}, {"date_time", "2020-02-23 11.22.34"}, {"valid", "0"}, {"latitude", "55.123457"}, {"longitude", "37.123457"}, {"altitude", "23.45"}, {"speed", "12.34"}, {"course", "123.45"}, {"rcv_id", "2"}, {"update_id", "1"}},
-				{{"timestamp", "2020-02-28 14.23:50"}, {"gnss", "1"}, {"date_time", "2020-02-23 11.22.35"}, {"valid", "1"}, {"latitude", "55.123458"}, {"longitude", "37.123458"}, {"altitude", "23.45"}, {"speed", "12.34"}, {"course", "123.45"}, {"rcv_id", "2"}, {"update_id", "1"}},
-				{{"timestamp", "2020-02-28 14.23:51"}, {"gnss", "1"}, {"date_time", "2020-02-23 11.22.36"}, {"valid", "1"}, {"latitude", "55.123459"}, {"longitude", "37.123459"}, {"altitude", "23.45"}, {"speed", "12.34"}, {"course", "123.45"}, {"rcv_id", "2"}, {"update_id", "1"}},
-			};
-
-			DB_Insert(&MySQL, "pos", Query, Cerr);
-		}
-
-		{
-			tVectorSQLQueryParam Query
-			{
-				{{"pos_id", "1"}, {"sat_id", "31"}, {"elevation", "21"}, {"azimuth", "121"}, {"snr", "91"}},
-				{{"pos_id", "1"}, {"sat_id", "32"}, {"elevation", "22"}, {"azimuth", "122"}, {"snr", "92"}},
-				{{"pos_id", "1"}, {"sat_id", "33"}, {"elevation", "23"}, {"azimuth", "123"}, {"snr", "93"}},
-				{{"pos_id", "1"}, {"sat_id", "34"}, {"elevation", "24"}, {"azimuth", "124"}, {"snr", "94"}},
-
-				{{"pos_id", "2"}, {"sat_id", "31"}, {"elevation", "25"}, {"azimuth", "125"}, {"snr", "95"}},
-				{{"pos_id", "2"}, {"sat_id", "32"}, {"elevation", "26"}, {"azimuth", "126"}, {"snr", "96"}},
-				{{"pos_id", "2"}, {"sat_id", "33"}, {"elevation", "27"}, {"azimuth", "127"}, {"snr", "97"}},
-				{{"pos_id", "2"}, {"sat_id", "34"}, {"elevation", "28"}, {"azimuth", "128"}, {"snr", "98"}},
-			};
-
-			DB_Insert(&MySQL, "sat", Query, Cerr);
+			std::cout << "ERR DB: " << mysql_errno(&MySQL) << '\n';
 		}
 
 		mysql_close(&MySQL);
