@@ -2,12 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="LoadTable.cpp" />
-    <ClCompile Include="LoadTable_vehicle.cpp" />
     <ClCompile Include="DB.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LoadTable.h" />
     <ClInclude Include="DB.h" />
   </ItemGroup>
   <ItemGroup>
